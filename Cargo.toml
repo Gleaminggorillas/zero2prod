@@ -2,8 +2,27 @@
 name = "zero2prod"
 version = "0.1.0"
 edition = "2021"
+authors = ["Luca Palmieri <contact@lpalmierei.com",  "Tiffany-Morrigan Henebury <tiffsisstracker@gmail.com>"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+# any path can be used
+# library name can be specified with 'name' field.
+# otherwise defaults to 'package.name'
+path = "src/lib.rs"
+
+[[bin]]
+# double brackets - an array in TOML syntax
+# only ever hace one lib per project, but can have multiple binaries!
+# to manage multiple libraries in the same repo, look at the
+# workspace feature
+path = "src/main.rs"
+name = "zero2prod"
+
+[dev-dependencies]
+# only included in tests or examples, not in final app binary
+reqwest = "0.11"
 
 [dependencies]
 actix-web = "4.0.0"
