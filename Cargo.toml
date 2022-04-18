@@ -27,6 +27,20 @@ reqwest = "0.11"
 [dependencies]
 actix-web = "4.0.0"
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+serde = { version = "1", features = ["derive"] }
+
+# table-like toml to modularise
+[dependencies.sqlx]
+version = "0.5.7"
+default-features = false
+features = [
+    "runtime-actix-rustls", # actix runtime for futures, rustls as tls backend
+    "macros", # actix to sqlx::query! & sqlx::query_as!
+    "postgres", # postgres functionality for non-standard types
+    "uuid", # uuid for mapping SQL UUIDs to UUID from the crate. for ID column
+    "chrono", # maps timestamptz to DateTime<T> from the chrono crate
+    "migrate" # access to sqlx migrate functions within code. useful for test suite.
+    ]
 
 [target.x86_64-pc-windows-msvc]
 rustflags = ["-C", "link-arg=-fuse-ld=lld"]
