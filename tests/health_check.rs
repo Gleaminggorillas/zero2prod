@@ -1,5 +1,7 @@
 //! tests/health_check.rs
 
+use sqlx::{PgConnection, Connection};
+use zero2prod::configuration::get_configuration;
 use std::net::TcpListener;
 
 // 'tokio::test' is the test equiv of 'tokio::main'
@@ -39,6 +41,14 @@ fn spawn_app() -> String {
 async fn subscribe_returns_a_200_for_valid_form_data() {
     // Arrange
     let app_address = spawn_app();
+    let configuration = get_configuration().expect("Failed to read configuration");
+    let connection_string = configuration.database.connection_string();
+    // Connection trait must be brought into scope to use it
+    // PgConnection connect isn't within the struct
+    let connection = PgConnection::connect(&connection_string)
+        .await
+        .expect("Failed to connect to postgres");
+
     let client = reqwest::Client::new();
 
     // Act
