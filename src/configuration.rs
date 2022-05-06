@@ -1,7 +1,7 @@
 #[derive(serde::Deserialize)]
 pub struct Settings {
     pub database: DatabaseSettings,
-    pub application_port: u16
+    pub application_port: u16,
 }
 
 #[derive(serde::Deserialize)]
@@ -18,7 +18,7 @@ pub fn get_configuration() -> Result<Settings, config::ConfigError> {
     let mut settings = config::Config::default();
 
     // add configuration from config files
-    // looks for any top-level file 
+    // looks for any top-level file
     // with a matching extension
     settings.merge(config::File::with_name("configuration"))?;
 

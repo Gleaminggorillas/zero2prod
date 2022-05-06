@@ -1,8 +1,8 @@
 //! tests/health_check.rs
 
-use sqlx::{PgConnection, Connection};
-use zero2prod::configuration::get_configuration;
+use sqlx::{Connection, PgConnection};
 use std::net::TcpListener;
+use zero2prod::configuration::get_configuration;
 
 // 'tokio::test' is the test equiv of 'tokio::main'
 // prevents having to use the #[test] attribute
@@ -82,7 +82,7 @@ async fn subscribe_returns_a_400_when_data_is_missing() {
     let test_cases = vec![
         ("name=le%20giun", "missing the email"),
         ("email=ursula_le_guin%40gmail.com", "missing the name"),
-        ("", "missing both name and email")
+        ("", "missing both name and email"),
     ];
 
     for (invalid_body, error_message) in test_cases {
@@ -96,13 +96,13 @@ async fn subscribe_returns_a_400_when_data_is_missing() {
             .await
             .expect("Failed to execute request");
 
-    // Assert
-    assert_eq!(
-        400,
-        response.status().as_u16(),
-        // customised error message on failure
-        "The API did not fail with 400 Bad Request when the payload was {}.",
-        error_message
+        // Assert
+        assert_eq!(
+            400,
+            response.status().as_u16(),
+            // customised error message on failure
+            "The API did not fail with 400 Bad Request when the payload was {}.",
+            error_message
         );
     }
 }
