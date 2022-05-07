@@ -45,8 +45,7 @@ async fn spawn_app() -> TestApp {
         .await
         .expect("Failed to connect to Postgres");
 
-    let server = run(listener, connection_pool.clone())
-        .expect("Failed to bind address.");
+    let server = run(listener, connection_pool.clone()).expect("Failed to bind address.");
     let _ = tokio::spawn(server);
     TestApp {
         address,
