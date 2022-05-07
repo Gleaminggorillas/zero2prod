@@ -1,10 +1,10 @@
 //! tests/health_check.rs
 
-use sqlx::{Connection,Executor, PgPool, PgConnection};
+use sqlx::{Connection, Executor, PgConnection, PgPool};
 use std::net::TcpListener;
+use uuid::Uuid;
 use zero2prod::configuration::{get_configuration, DatabaseSettings};
 use zero2prod::startup::run;
-use uuid::Uuid;
 
 pub struct TestApp {
     pub address: String,
@@ -43,8 +43,7 @@ async fn spawn_app() -> TestApp {
 
     let mut configuration = get_configuration().expect("Failed to read configuration");
     configuration.database.database_name = Uuid::new_v4().to_string();
-    let connection_pool = configure_database(&configuration.database)
-        .await;
+    let connection_pool = configure_database(&configuration.database).await;
 
     let server = run(listener, connection_pool.clone()).expect("Failed to bind address.");
     let _ = tokio::spawn(server);
@@ -54,7 +53,7 @@ async fn spawn_app() -> TestApp {
     }
 }
 
-pub async fn configure_database(config: &DatabaseSettings)-> PgPool {
+pub async fn configure_database(config: &DatabaseSettings) -> PgPool {
     // Create DB
     let mut connection = PgConnection::connect(&config.connection_string_without_db())
         .await
