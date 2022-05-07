@@ -2275,6 +2275,7 @@ dependencies = [
  "chrono",
  "config",
  "env_logger",
+ "log",
  "reqwest",
  "serde 1.0.136",
  "sqlx",
