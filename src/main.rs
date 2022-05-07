@@ -1,9 +1,9 @@
 //! main.rs
 
+use sqlx::{Connection, PgConnection};
 use std::net::TcpListener;
 use zero2prod::configuration::get_configuration;
 use zero2prod::startup::run;
-use sqlx::{Connection, PgConnection};
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {

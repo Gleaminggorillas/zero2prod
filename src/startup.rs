@@ -7,10 +7,7 @@ use std::net::TcpListener;
 // run must be marked as public
 // it is not a binary entrypoint, and can be marked as async
 // without using pro-macro incantation
-pub fn run(
-    listener: TcpListener,
-    connection: PgConnection
-    ) -> Result<Server, std::io::Error> {
+pub fn run(listener: TcpListener, connection: PgConnection) -> Result<Server, std::io::Error> {
     // wrap conn in smart pointer
     let connection = web::Data::new(connection);
     // grab connection from surrounding env
