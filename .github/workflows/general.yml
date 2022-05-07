@@ -6,11 +6,15 @@ on:
   # this specific branch (a.k.a. book chapter).
   push:
     branches:
-      - sqlx-macro, telemetry, main
+      - sqlx-macro
+      - telemetry
+      - main
   pull_request:
     types: [ opened, synchronize, reopened ]
     branches:
-      - sqlx-macro, telemetry, main
+      - sqlx-macro
+      - telemetry
+      - main
 
 env:
   CARGO_TERM_COLOR: always
