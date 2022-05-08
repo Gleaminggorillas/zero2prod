@@ -13,12 +13,8 @@ use zero2prod::startup::run;
 async fn main() -> std::io::Result<()> {
     // remove env_logger
     // print all spans at info level or above if RUST_LOG hasn't been set
-    let env_filter = EnvFilter::try_from_default_env()
-        .unwrap_or_else(|_| EnvFilter::new("info"));
-    let formatting_layer = BunyanFormattingLayer::new(
-        "zero2prod".into(),
-        std::io::stdout
-    );
+    let env_filter = EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new("info"));
+    let formatting_layer = BunyanFormattingLayer::new("zero2prod".into(), std::io::stdout);
     // 'With' method provided by SubscriberExt, exposed by Subscriber::tracing_subscriber
     let subscriber = Registry::default()
         .with(env_filter)
