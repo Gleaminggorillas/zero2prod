@@ -6,11 +6,14 @@ use std::net::TcpListener;
 use tracing::subscriber::set_global_default;
 use tracing_bunyan_formatter::{BunyanFormattingLayer, JsonStorageLayer};
 use tracing_subscriber::{layer::SubscriberExt, EnvFilter, Registry};
+use tracing_log::LogTracer;
 use zero2prod::configuration::get_configuration;
 use zero2prod::startup::run;
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
+    // redirect all logs to 'subscriber'
+    LogTracer::init().expect("Failed to set logger");
     // remove env_logger
     // print all spans at info level or above if RUST_LOG hasn't been set
     let env_filter = EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new("info"));
