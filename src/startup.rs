@@ -6,6 +6,7 @@ use actix_web::web::Data;
 use actix_web::{web, App, HttpServer};
 use sqlx::PgPool;
 use std::net::TcpListener;
+use tracing_actix_web::TracingLogger;
 // run must be marked as public
 // it is not a binary entrypoint, and can be marked as async
 // without using pro-macro incantation
@@ -16,7 +17,7 @@ pub fn run(listener: TcpListener, db_pool: PgPool) -> Result<Server, std::io::Er
     let server = HttpServer::new(move || {
         App::new()
             // add middleware logger
-            .wrap(Logger::default())
+            .wrap(TracingLogger::default())
             .route("/health_check", web::get().to(health_check))
             .route("/subscriptions", web::post().to(subscribe))
             // grab the pointer clone, attach to appication state
