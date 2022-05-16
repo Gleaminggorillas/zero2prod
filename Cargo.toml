@@ -51,7 +51,8 @@ features = [
     "postgres", # postgres functionality for non-standard types
     "uuid", # uuid for mapping SQL UUIDs to UUID from the crate. for ID column
     "chrono", # maps timestamptz to DateTime<T> from the chrono crate
-    "migrate" # access to sqlx migrate functions within code. useful for test suite.
+    "migrate", # access to sqlx migrate functions within code. useful for test suite.
+    "offline" # easier to get local Docker container up and running
     ]
 
 [target.x86_64-pc-windows-msvc]
