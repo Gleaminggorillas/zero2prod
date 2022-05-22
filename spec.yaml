@@ -1,0 +1,31 @@
+#! spec.yaml
+name: zero2prod
+# Check regional areas at Digital Ocean.
+# These can be found at https://www.digitalocean.com/docs/platform/availibility-matrix
+region: lon
+services:
+  - name: zero2prod
+    # Relation to the repository root
+    dockerfile_path: Dockerfile
+    source_dir: .
+    github:
+      # specify branch
+      branch: main
+      # For branch above, continuous deployment on oroff?
+      deploy_on_push: true
+      # Fill this with your details
+      # <YOUR_USERNAME>/<YOUR_REPO_NAME>
+      repo: Gleaminggorillas/zero2prod
+    # check the application is healthy
+    health_check:
+    # path to the health_check endpoint
+      http_path: /health_check
+    # The port on which the application will listen for open requests
+    http_port: 8000
+    # INSTANCES: For prodution workloads, we would choose at least 2, 
+    # but lets keep costs to a minimum for now
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    # All incoming requests should be routed to the app
+    routes:
+      - path: /
