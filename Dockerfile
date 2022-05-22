@@ -52,4 +52,4 @@ COPY configuration configuration
 ENV APP_ENVIRONMENT production
 
 # run the following command at the CLI
-ENTRYPOINT ["/zero2prod"]
+ENTRYPOINT ["./zero2prod"]
